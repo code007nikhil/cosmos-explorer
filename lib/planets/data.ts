@@ -1,0 +1,38 @@
+import type { Planet } from "@/types";
+/** Static reference values from NASA Planetary Fact Sheets (https://nssdc.gsfc.nasa.gov/planetary/factsheet/). Mean radius in km; distance = semi-major axis. */
+export const PLANET_SOURCE = "https://nssdc.gsfc.nasa.gov/planetary/factsheet/";
+export const PLANETS: Planet[] = [
+  { slug: "mercury", name: "Mercury", type: "Terrestrial planet", radiusKm: 2439.7, distanceMillionKm: 57.9, dayLength: "175.9 Earth days (solar day); 58.6 days sidereal rotation", yearLength: "88 Earth days", moons: "0",
+    summary: "The smallest planet and the closest to the Sun, covered in craters.", fact: "A single year on Mercury is shorter than one of its own days.",
+    composition: "Rocky surface over a large metallic iron core.", atmosphere: "Virtually none; a thin exosphere of atoms blasted off the surface.", temperature: "About 167 °C mean surface temperature; ranges from roughly -180 °C at night to 430 °C by day.",
+    colors: ["#b9b2a8", "#6f6a63"], vis: { radius: 0.5, orbit: 8, speed: 1.6 } },
+  { slug: "venus", name: "Venus", type: "Terrestrial planet", radiusKm: 6051.8, distanceMillionKm: 108.2, dayLength: "116.8 Earth days (solar day); 243 days sidereal, retrograde", yearLength: "224.7 Earth days", moons: "0",
+    summary: "A cloud-wrapped world with the hottest surface in the solar system.", fact: "Venus spins backwards compared with most planets.",
+    composition: "Rocky, with a silicate mantle and an iron core.", atmosphere: "Very dense carbon dioxide with sulfuric acid clouds; surface pressure about 92 times Earth's.", temperature: "About 464 °C mean surface temperature.",
+    colors: ["#e8c98a", "#b07d3a"], vis: { radius: 0.9, orbit: 11, speed: 1.2 } },
+  { slug: "earth", name: "Earth", type: "Terrestrial planet", radiusKm: 6371, distanceMillionKm: 149.6, dayLength: "24 hours (solar day); 23 h 56 min sidereal", yearLength: "365.25 days", moons: "1",
+    summary: "Our home, the only place known to host life.", fact: "About 71% of Earth's surface is covered by water.",
+    composition: "Rocky with an iron-nickel core, silicate mantle and thin crust.", atmosphere: "About 78% nitrogen and 21% oxygen.", temperature: "About 15 °C mean surface temperature.",
+    colors: ["#4f9bdc", "#2a6b3c"], vis: { radius: 1, orbit: 14, speed: 1.0 } },
+  { slug: "mars", name: "Mars", type: "Terrestrial planet", radiusKm: 3389.5, distanceMillionKm: 227.9, dayLength: "About 24 h 39.6 min (solar day, a 'sol'); 24 h 37 min sidereal rotation", yearLength: "687 Earth days", moons: "2 (Phobos and Deimos)",
+    summary: "A cold desert world with the tallest volcano in the solar system.", fact: "Olympus Mons is roughly two and a half times the height of Mount Everest.",
+    composition: "Rocky, iron-rich surface that gives it a rusty color.", atmosphere: "Thin, about 95% carbon dioxide; surface pressure under 1% of Earth's.", temperature: "About -65 °C mean surface temperature.",
+    colors: ["#d1603d", "#8a3a22"], vis: { radius: 0.7, orbit: 17, speed: 0.8 } },
+  { slug: "jupiter", name: "Jupiter", type: "Gas giant", radiusKm: 69911, distanceMillionKm: 778.5, dayLength: "About 9.9 hours", yearLength: "About 11.9 Earth years", moons: "95+ confirmed (count changes as new moons are found)",
+    summary: "The largest planet, a banded gas giant with a centuries-old storm.", fact: "The Great Red Spot is a storm wider than Earth.",
+    composition: "Mostly hydrogen and helium, with a possible dense core.", atmosphere: "Hydrogen and helium with ammonia clouds.", temperature: "About -110 °C at the 1 bar pressure level (no solid surface).",
+    colors: ["#d9b38c", "#a8744f"], vis: { radius: 2.4, orbit: 23, speed: 0.45 } },
+  { slug: "saturn", name: "Saturn", type: "Gas giant", radiusKm: 58232, distanceMillionKm: 1432, dayLength: "About 10.7 hours", yearLength: "About 29.4 Earth years", moons: "200+ confirmed (count changes as new moons are found)",
+    summary: "The ringed giant, famous for its bright, icy ring system.", fact: "Saturn is the least dense planet; it is less dense than water.",
+    composition: "Mostly hydrogen and helium with a possible rocky core.", atmosphere: "Hydrogen and helium with ammonia ice clouds.", temperature: "About -140 °C at the 1 bar pressure level (no solid surface).",
+    colors: ["#e6d3a3", "#b89a5e"], rings: true, vis: { radius: 2, orbit: 29, speed: 0.34 } },
+  { slug: "uranus", name: "Uranus", type: "Ice giant", radiusKm: 25362, distanceMillionKm: 2867, dayLength: "About 17.2 hours (retrograde)", yearLength: "About 84 Earth years", moons: "28+ confirmed",
+    summary: "A pale, tilted ice giant that rolls around the Sun on its side.", fact: "Its axis is tilted about 98 degrees, so it orbits nearly on its side.",
+    composition: "Water, methane and ammonia ices around a small rocky core.", atmosphere: "Hydrogen, helium and methane, which gives its blue-green tint.", temperature: "About -195 °C at the 1 bar pressure level.",
+    colors: ["#9fe3e6", "#5fb0bb"], vis: { radius: 1.5, orbit: 34, speed: 0.24 } },
+  { slug: "neptune", name: "Neptune", type: "Ice giant", radiusKm: 24622, distanceMillionKm: 4515, dayLength: "About 16.1 hours", yearLength: "About 164.8 Earth years", moons: "16 confirmed",
+    summary: "A dark, windy ice giant at the edge of the planetary system.", fact: "Neptune has the fastest winds measured on any planet, over 2,000 km/h.",
+    composition: "Water, methane and ammonia ices around a rocky core.", atmosphere: "Hydrogen, helium and methane.", temperature: "About -201 °C at the 1 bar pressure level.",
+    colors: ["#4a6ff0", "#2a3fa8"], vis: { radius: 1.5, orbit: 39, speed: 0.19 } },
+];
+export const getPlanet = (slug: string) => PLANETS.find((p) => p.slug === slug);

@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html, body { background: #05070f; color: #e6ebf5; font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif; overflow-x: clip; }
+h1, h2, h3 { font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif; letter-spacing: -0.01em; }
+:focus-visible { outline: 2px solid #22d3ee; outline-offset: 2px; border-radius: 6px; }
+.surface { background: rgba(14, 22, 44, 0.65); border: 1px solid rgba(148, 163, 184, 0.16); border-radius: 14px; backdrop-filter: blur(6px); }
+.btn { display: inline-flex; align-items: center; gap: .5rem; padding: .6rem 1rem; border-radius: 10px; font-weight: 600; font-size: .9rem; transition: background .15s, border-color .15s; }
+.btn-primary { background: #3b82f6; color: #fff; } .btn-primary:hover { background: #2563eb; }
+.btn-ghost { border: 1px solid rgba(148,163,184,.3); color: #e6ebf5; } .btn-ghost:hover { background: rgba(148,163,184,.12); }
+.stars { background-image:
+  radial-gradient(1.5px 1.5px at 12% 22%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 38% 70%, #cfe3ff 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 64% 18%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 82% 58%, #b6c8ff 50%, transparent 51%),
+  radial-gradient(1px 1px at 25% 88%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 92% 90%, #cfe3ff 50%, transparent 51%),
+  radial-gradient(1px 1px at 50% 40%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 5% 60%, #fff 50%, transparent 51%);
+  animation: twinkle 6s ease-in-out infinite alternate; }
+@keyframes twinkle { from { opacity: .55; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .stars { animation: none; } * { scroll-behavior: auto !important; transition: none !important; } }
