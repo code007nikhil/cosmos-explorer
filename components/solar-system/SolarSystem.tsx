@@ -53,9 +53,9 @@ export function SolarSystem({ initial }: { initial?: string }) {
         <Boundary fallback={<Fallback reason="The 3D scene failed to load." />}>
           <Scene selected={selected} onSelect={setSelected} paused={paused} showOrbits={orbits} showLabels={labels} resetKey={resetKey} onContextLost={() => setLost(true)} />
         </Boundary>
-        <p className="pointer-events-none absolute bottom-2 left-3 rounded bg-black/50 px-2 py-1 text-xs text-slate-300">Illustrative scale, not to scale. Orbital motion is simulated and not scientifically precise.</p>
+        <p className={`pointer-events-none absolute bottom-2 left-3 z-10 rounded bg-black/50 px-2 py-1 text-xs text-slate-300 ${p ? "hidden sm:block" : ""}`}>Illustrative scale, not to scale. Orbital motion is simulated and not scientifically precise.</p>
         {p && (
-          <aside aria-label={`${p.name} information`} className="surface absolute right-3 top-3 w-[calc(100%-1.5rem)] max-w-xs bg-navy/90 p-4 text-sm">
+          <aside aria-label={`${p.name} information`} className="surface absolute inset-x-3 bottom-3 z-30 max-h-[52%] overflow-y-auto bg-navy/95 p-4 text-sm sm:inset-x-auto sm:bottom-auto sm:right-3 sm:top-3 sm:max-h-[calc(100%-1.5rem)] sm:w-80">
             <div className="flex items-start justify-between"><div><h2 className="text-xl font-semibold">{p.name}</h2><p className="text-slate-400">{p.type}</p></div>
               <button aria-label="Close planet panel" onClick={() => { setSelected(null); setResetKey((k) => k + 1); }} className="rounded p-1 hover:bg-white/10"><X className="h-4 w-4" aria-hidden /></button></div>
             <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">

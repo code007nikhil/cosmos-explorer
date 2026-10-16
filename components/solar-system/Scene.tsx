@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo, useRef, useState, type ElementRef, type MutableRefObject } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Stars, Html } from "@react-three/drei";
 import * as THREE from "three";
 import type { Planet } from "@/types";
@@ -39,7 +39,7 @@ function PlanetBody({ planet, index, selected, hovered, setHovered, onSelect, pa
           <meshBasicMaterial color="#e6d3a3" side={THREE.DoubleSide} transparent opacity={0.65} />
         </mesh>
       )}
-      {(showLabels || selected || hovered) && <Html position={[0, radius + 0.9, 0]} center distanceFactor={40} style={{ pointerEvents: "none" }}><span className="whitespace-nowrap rounded bg-black/60 px-2 py-0.5 text-xs text-white">{planet.name}</span></Html>}
+      {!selected && (showLabels || hovered) && <Html position={[0, radius + 0.9, 0]} center distanceFactor={40} zIndexRange={[10, 0]} style={{ pointerEvents: "none" }}><span className="whitespace-nowrap rounded bg-black/60 px-2 py-0.5 text-xs text-white">{planet.name}</span></Html>}
     </group>
   );
 }
@@ -47,19 +47,24 @@ function PlanetBody({ planet, index, selected, hovered, setHovered, onSelect, pa
 function Rig({ selected, resetKey, positions, transition, controls }: { selected: string | null; resetKey: number; positions: Positions; transition: MutableRefObject<boolean>; controls: MutableRefObject<Controls | null> }) {
   const tmp = useMemo(() => new THREE.Vector3(), []);
   const want = useMemo(() => new THREE.Vector3(), []);
+  const goalV = useMemo(() => new THREE.Vector3(), []);
+  const { size } = useThree();
+  const compact = size.width < 640; // phones: the info panel is a bottom sheet, so lift the planet above it
   useEffect(() => { transition.current = true; }, [selected, resetKey, transition]);
   useFrame(({ camera }) => {
     const c = controls.current; if (!c) return;
     const p = selected ? positions.current[selected] : null;
     const pl = selected ? PLANETS.find((x) => x.slug === selected) : null;
-    const goal = p ?? tmp.set(0, 0, 0);
+    const dist = pl ? pl.vis.radius * 4 + 3 : 0;
+    const lift = compact && p ? dist * 0.22 : 0;
+    const goal = goalV.copy(p ?? tmp.set(0, 0, 0)); goal.y -= lift;
     if (transition.current) {
       c.target.lerp(goal, 0.08);
-      if (p && pl) { const d = pl.vis.radius * 4 + 3; want.copy(p).normalize().multiplyScalar(d).add(p); want.y += d * 0.4; } else want.copy(HOME);
+      if (p && pl) { want.copy(p).normalize().multiplyScalar(dist).add(p); want.y += dist * 0.4 - lift; } else want.copy(HOME);
       camera.position.lerp(want, 0.06);
       if (c.target.distanceTo(goal) < 0.05 && camera.position.distanceTo(want) < 0.3) transition.current = false;
     } else if (p) {
-      const delta = tmp.copy(p).sub(c.target); c.target.add(delta); camera.position.add(delta);
+      const delta = tmp.copy(goal).sub(c.target); c.target.add(delta); camera.position.add(delta);
     }
     c.update();
   });
